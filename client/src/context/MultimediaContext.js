@@ -4,7 +4,7 @@ const MultimediaContext = createContext();
 
 export const MultimediaProvider = ({ children }) => {
   const [displayText, setDisplayText] = useState(
-    "INITIALIZED: ready to test speech..."
+    "Ready to test speech..."
   );
   const [player, updatePlayer] = useState({ p: undefined, muted: false });
 
