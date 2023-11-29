@@ -3,35 +3,43 @@ require("dotenv").config();
 const axios = require("axios");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-// app.js
-const OpenAI = require('openai');
-
+const OpenAI = require("openai");
+const app = express();
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted
+  apiKey: process.env.OPENAI_API_KEY,
 });
-
-
-
-const app = express();
 
 // Middele Wares
 app.use(bodyParser.json());
 app.use(cors());
-
-
 //app.use(bodyParser.urlencoded({ extended: false }));
 
 // Routes
-app.get("/test", async (req, res, next) => {
-  const chatCompletion = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
-    messages: [{"role": "user", "content": "just give a one word answer"}],
-  });
-  res.json({
-    chatCompletion: chatCompletion.choices[0].message
-  })
+
+app.post("/api/sendMsgToOpenAI", async (req, res) => {
+  /*
+  const { message } = req.body;
+  console.log("Received message:", message);
+  res.json({ response: 'Backend received the message.' });
+ */
+  try {
+    const { message } = req.body;
+
+    const openaiResponse = await openai.chat.completions.create({
+      model: "gpt-4",
+      messages: [{ role: "user", content: message }],
+      max_tokens: 7,
+    });
+    console.log(openaiResponse);
+    const responseText = openaiResponse.choices[0].message.content;
+    res.json({ response: responseText });
+  } catch (error) {
+    console.error("Error processing message:", error);
+    res.status(500).json({ error: "An internal server error occurred." });
+  }
 });
+
 app.get("/api/get-speech-token", async (req, res, next) => {
   res.setHeader("Content-Type", "application/json");
   const speechKey = process.env.SPEECH_KEY;

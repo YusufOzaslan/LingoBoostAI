@@ -1,16 +1,16 @@
 import React, { useRef, useEffect, useContext } from "react";
 import userIcon from "../../assets/user-icon.png";
-import gptImgLogo from "../../assets/chatgptLogo.svg";
+import appLogo from "../../assets/probot-svgrepo-com.svg";
 import MessageContext from "../../context/MessageContext";
 
 function Chats() {
+  
+  const { messages } = useContext(MessageContext);
   const msgEnd = useRef(null);
 
   useEffect(() => {
     msgEnd.current.scrollIntoView();
-  }, []);
-
-  const { messages } = useContext(MessageContext);
+  }, [messages]);
 
   return (
     <div className="chats">
@@ -19,7 +19,7 @@ function Chats() {
           <div key={i} className={message.isBot ? "chat bot" : "chat"}>
             <img
               className="chatImg"
-              src={message.isBot ? gptImgLogo : userIcon}
+              src={message.isBot ? appLogo : userIcon}
             />
             <p className="txt">{message.text}</p>
           </div>

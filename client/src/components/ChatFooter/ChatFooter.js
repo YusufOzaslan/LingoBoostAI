@@ -17,12 +17,16 @@ function ChatFooter() {
     const text = input;
     setInput("");
     setMessages([...messages, { text, isBot: false }]);
-    const res = await sendMsgToOpenAI(input);
-    setMessages([
-      ...messages,
-      { text, isBot: false },
-      { text: res, isBot: true },
-    ]);
+    try {
+      const res = await sendMsgToOpenAI(input);
+      setMessages([
+        ...messages,
+        { text, isBot: false },
+        { text: res, isBot: true },
+      ]);
+    } catch (error) {
+      console.error("API request error:", error);
+    }
   };
 
   return (

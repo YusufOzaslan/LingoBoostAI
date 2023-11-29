@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import rocket from "../../assets/rocket.svg";
 import home from "../../assets/home.svg";
-import gptLogo from "../../assets/chatgpt.svg";
+import appLogo from "../../assets/probot-svgrepo-com.svg";
 import addBtn from "../../assets/add-30.png";
 import msgIcon from "../../assets/message.svg";
 import saved from "../../assets/bookmark.svg";
@@ -26,7 +26,7 @@ function SideBar() {
     <div className="sideBar">
       <div className="upperSide">
         <div className="upperSideTop">
-          <img src={gptLogo} alt="Logo" className="logo" />
+          <img src={appLogo} alt="Logo" className="logo" />
           <span className="brand">Speech sample app</span>
         </div>
         <button
@@ -49,6 +49,7 @@ function SideBar() {
           </button>
         </div>
       </div>
+          {/* 
       <div className="lowerSide">
         <div className="listItems">
           {" "}
@@ -66,6 +67,7 @@ function SideBar() {
           Test
         </div>
       </div>
+       */}
     </div>
   );
 }
