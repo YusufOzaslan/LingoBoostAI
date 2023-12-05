@@ -1,13 +1,14 @@
 import { useContext } from "react";
-import MultimediaContext from "../../context/MultimediaContext";
+//import MultimediaContext from "../../context/MultimediaContext";
 import MessageContext from "../../context/MessageContext";
 import sendBtn from "../../assets/send.svg";
 import { sendMsgToOpenAI } from "../../utils/openai";
 
 function ChatFooter() {
-  const { displayText, setDisplayText } = useContext(MultimediaContext);
+  //const { displayText, setDisplayText } = useContext(MultimediaContext);
 
-  const { messages, setMessages, input, setInput } = useContext(MessageContext);
+  const { messages, setMessages, input, setInput, level, category } =
+    useContext(MessageContext);
 
   const handleEnter = async (e) => {
     if (e.key === "Enter") await handleSend();
@@ -18,7 +19,7 @@ function ChatFooter() {
     setInput("");
     setMessages([...messages, { text, isBot: false }]);
     try {
-      const res = await sendMsgToOpenAI(input);
+      const res = await sendMsgToOpenAI(input, level, category, messages);
       setMessages([
         ...messages,
         { text, isBot: false },

@@ -3,14 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
 import { getTokenOrRefresh } from "../../../utils/token_util";
 import { ResultReason } from "microsoft-cognitiveservices-speech-sdk";
-import MultimediaContext from "../../../context/MultimediaContext";
 import MessageContext from "../../../context/MessageContext";
 
 const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
 
 function SttFromMic() {
-  const { setDisplayText } = useContext(MultimediaContext);
-  const { messages, setMessages, input, setInput } = useContext(MessageContext);
+  const { setInput } = useContext(MessageContext);
 
   async function _sttFromMic() {
     const tokenObj = await getTokenOrRefresh();
@@ -30,7 +28,7 @@ function SttFromMic() {
 
     recognizer.recognizeOnceAsync((result) => {
       if (result.reason === ResultReason.RecognizedSpeech) {
-        setInput(`RECOGNIZED: Text=${result.text}`);
+        setInput(result.text);
       } else {
         setInput(
           "ERROR: Speech was cancelled or could not be recognized. Ensure your microphone is working properly."

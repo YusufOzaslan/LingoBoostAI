@@ -1,7 +1,7 @@
 import { Container } from "reactstrap";
 import SttFromMic from "./components/Multimedia/SttFromMic/SttFromMic";
-//import TextToSpeech from "./components/Multimedia/TextToSpeech/TextToSpeech";
-//import HandleMute from "./components/Multimedia/HandleMute/HandleMute";
+import TextToSpeech from "./components/Multimedia/TextToSpeech/TextToSpeech";
+import HandleMute from "./components/Multimedia/HandleMute/HandleMute";
 //import DisplayText from "./components/DisplayText/DisplayText";
 import SideBar from "./components/SideBar/SideBar";
 import Chats from "./components/Chats/Chats";
@@ -15,16 +15,18 @@ export default function App() {
     <MultimediaProvider>
       <MessageProvider>
         <Container className="app-container">
+          <TextToSpeech />
           <div className="App">
             <SideBar />
             <div className="main">
               <Chats />
               <div className="chatFooter">
-                <div>
+                <div className="buttons-container">
                   <SttFromMic />
+                  <HandleMute />
                 </div>
                 <ChatFooter />
-                <p>Practice speaking English with Chatgpt</p>
+                <p>Empower Your English Journey with LingoBoostIA App</p>
               </div>
             </div>
           </div>

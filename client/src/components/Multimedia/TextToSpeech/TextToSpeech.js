@@ -1,12 +1,24 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { getTokenOrRefresh } from "../../../utils/token_util";
 import MultimediaContext from "../../../context/MultimediaContext";
+import MessageContext from "../../../context/MessageContext";
 const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
 
 function TextToSpeech() {
+  const { messages } = useContext(MessageContext);
   const { setDisplayText, player, updatePlayer } =
     useContext(MultimediaContext);
-  async function _textToSpeech() {
+
+  useEffect(() => {
+    // Code to run when the last element of the messages array changes
+    const latestMessage = messages[messages.length - 1];
+
+    if (latestMessage && latestMessage.isBot) {
+      _textToSpeech(latestMessage.text);
+    }
+  }, [messages]);
+
+  async function _textToSpeech(textToSpeak) {
     const tokenObj = await getTokenOrRefresh();
     const speechConfig = speechsdk.SpeechConfig.fromAuthorizationToken(
       tokenObj.authToken,
@@ -24,9 +36,8 @@ function TextToSpeech() {
       audioConfig
     );
 
-    const textToSpeak =
-      "This is an example of speech synthesis for a long passage of text. Pressing the mute button should pause/resume the audio output.";
-    setDisplayText(`speaking text: ${textToSpeak}...`);
+    //const textToSpeak = "This is an example of speech synthesis for a long passage of text. Pressing the mute button should pause/resume the audio output.";
+    //setDisplayText(`speaking text: ${textToSpeak}...`);
     synthesizer.speakTextAsync(
       textToSpeak,
       (result) => {
@@ -51,15 +62,7 @@ function TextToSpeech() {
     );
   }
 
-  return (
-    <div className="mt-2">
-      <i
-        className="fas fa-volume-up fa-lg mr-2"
-        onClick={() => _textToSpeech()}
-      ></i>
-      Convert text to speech.
-    </div>
-  );
+  return <div></div>;
 }
 
 export default TextToSpeech;

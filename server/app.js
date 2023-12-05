@@ -18,18 +18,35 @@ app.use(cors());
 // Routes
 
 app.post("/api/sendMsgToOpenAI", async (req, res) => {
-  /*
-  const { message } = req.body;
-  console.log("Received message:", message);
-  res.json({ response: 'Backend received the message.' });
- */
   try {
-    const { message } = req.body;
+    const { message, level, category, messages } = req.body;
 
+    const messagesForAPI = messages.slice(2).map((msg) => ({
+      role: msg.isBot ? "assistant" : "user",
+      content: msg.text,
+    }));
+
+    if (message.trim() !== "") {
+      messagesForAPI.push({
+        role: "user",
+        content: message,
+      });
+    }
+
+    console.log(messagesForAPI);
     const openaiResponse = await openai.chat.completions.create({
       model: "gpt-4",
-      messages: [{ role: "user", content: message }],
-      max_tokens: 7,
+      messages: [
+        {
+          role: "system",
+          content: `You are a chat bot for practicing English in the ${category} 
+          topic at the ${level} English level. Your aim is to start a conversation
+           at ${level} level in English education.`,
+        },
+        ...messagesForAPI,
+        //{ role: "user", content: message },
+      ],
+      max_tokens: 50,
     });
     console.log(openaiResponse);
     const responseText = openaiResponse.choices[0].message.content;

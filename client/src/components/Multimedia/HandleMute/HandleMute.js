@@ -1,4 +1,6 @@
 import { useContext } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faVolumeMute } from "@fortawesome/free-solid-svg-icons";
 import MultimediaContext from "../../../context/MultimediaContext";
 
 function HandleMute() {
@@ -14,14 +16,14 @@ function HandleMute() {
       }
     });
   }
-
   return (
-    <div className="mt-2">
-      <i
+    <div>
+      {" "}
+      <FontAwesomeIcon
+        icon={faVolumeMute}
         className="fas fa-volume-mute fa-lg mr-2"
         onClick={() => _handleMute()}
-      ></i>
-      Pause/resume text to speech output.
+      />
     </div>
   );
 }

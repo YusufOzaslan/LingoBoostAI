@@ -55,7 +55,7 @@ body{
 }
 
 .midBtn{
-    background: #5a4bff;
+    background: #443d92;
     border: none;
     color: white;
     padding: 1.5rem;
@@ -96,11 +96,27 @@ body{
     align-items: center;
     font-size: 1.3rem;
 }
-
-.listItemsImg{
-    margin: 1rem;
-    padding-right: 1rem;
-}
+.listItemsBtn {
+    margin: 0.75rem;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+    background-color: #443d92; 
+    color: white; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .listItemsBtn.selected {
+    background-color: #397b54;
+    color: white;
+  }
+  
+  .listItemsBtn:hover {
+    background-color: #397b54;
+  }
 
 .listItems:nth-child(1)>.listItemsImg{
     padding-right: 0.5rem;
@@ -211,11 +227,13 @@ body{
 }
 
 .fa-volume-mute {
-    color: white;
+    color: rgb(104, 37, 37);    
+    font-size: 5rem;
+    margin-bottom:  2rem;
 }
 
 .fa-volume-mute:hover {
-    color: beige;
+    color: rgb(119, 24, 5);
 }
 
 .fa-file-audio {
@@ -234,3 +252,12 @@ body{
 .fas, .fa {
     cursor: pointer;
 }
+
+.buttons-container {
+    display: flex;
+    align-items: center;
+  }
+
+.buttons-container > * {
+    margin-right: 3rem;
+ }
