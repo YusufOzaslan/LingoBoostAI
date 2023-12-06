@@ -68,7 +68,7 @@ body{
     margin-bottom: 3rem;
     border-radius: 0.5rem;
 }
-.query{
+.topic{
     background: transparent;
     color: rgba(222, 222, 222, 1);
     padding: 1.5rem;
@@ -79,8 +79,15 @@ body{
     border-radius: 0.5rem;
     border: 1px solid rgba(98, 98, 98, 1);
 }
-
-.query>img{
+.topic.selected {
+    background-color: #397b54;
+    color: white;
+  }
+  
+  .topic:hover {
+    background-color: #397b54;
+  }
+.topic>img{
     margin-right: 2rem;
     object-fit: cover;
     height: 1.75rem;
@@ -261,3 +268,18 @@ body{
 .buttons-container > * {
     margin-right: 3rem;
  }
+
+ .chatBtn{
+    background: #397b54;
+    border: none;
+    color: white;
+    padding: 1.5rem;
+    font-size: 1.5rem;
+    width: 25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-bottom: 3rem;
+    border-radius: 0.5rem;
+}

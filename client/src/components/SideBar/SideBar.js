@@ -1,31 +1,34 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import appLogo from "../../assets/probot-svgrepo-com.svg";
 import clearBtn from "../../assets/clear.png";
 import msgIcon from "../../assets/message.svg";
 import MessageContext from "../../context/MessageContext";
-import { sendMsgToOpenAI } from "../../utils/openai";
 
 function SideBar() {
   const {
-    messages,
     setMessages,
-    input,
     level,
     setLevel,
-    category,
-    setCategory,
+    topic,
+    setTopic,
+    setStartChat,
   } = useContext(MessageContext);
 
-  const handleQuery = async (text) => {
-    setCategory(text);
-    setMessages([...messages, { text, isBot: false }]);
-    const res = await sendMsgToOpenAI(input, level, category, messages);
-    setMessages([
-      ...messages,
-      { text, isBot: false },
-      { text: res, isBot: true },
-    ]);
+  const handleTopicSelection = async (text) => {
+    setTopic(text);
+    setMessages([]);
+    setStartChat((prevStartChat) => ({
+      ...prevStartChat,
+      topicSelected: true,
+    }));
   };
+
+  useEffect(() => {
+    setStartChat((prevStartChat) => ({
+      ...prevStartChat,
+      showFooter: false,
+    }));
+  }, [topic]);
 
   const handleLevelClick = (selectedLevel) => {
     setLevel(selectedLevel);
@@ -36,8 +39,9 @@ function SideBar() {
       <div className="upperSide">
         <div className="upperSideTop">
           <img src={appLogo} alt="Logo" className="logo" />
-          <span className="brand">LingoBoostIA Web App</span>
+          <span className="brand">LingoBoostAI Web App</span>
         </div>
+
         <button
           className="midBtn"
           onClick={() => {
@@ -47,17 +51,22 @@ function SideBar() {
           <img src={clearBtn} alt="new chat" className="addBtn" />
           Clear Chat
         </button>
+        <span className="brand">Choose a topic</span>
         <div className="upperSideBottom">
           <button
-            className="query"
-            onClick={() => handleQuery("Cooking Recipe Talk")}
+            className={`topic ${
+              topic === "Cooking Recipe Talk" ? "selected" : ""
+            }`}
+            onClick={() => handleTopicSelection("Cooking Recipe Talk")}
           >
             <img src={msgIcon} alt="Query" className="" />
             Cooking Recipe Talk
           </button>
           <button
-            className="query"
-            onClick={() => handleQuery("Weather Discussion")}
+            className={`topic ${
+              topic === "Weather Discussion" ? "selected" : ""
+            }`}
+            onClick={() => handleTopicSelection("Weather Discussion")}
           >
             <img src={msgIcon} alt="Query" className="" />
             Weather Discussion

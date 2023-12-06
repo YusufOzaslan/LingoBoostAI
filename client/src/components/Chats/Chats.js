@@ -14,7 +14,7 @@ function Chats() {
 
   return (
     <div className="chats">
-      {messages.map((message, i) => {
+      {messages.slice(1).map((message, i) => {
         return (
           <div key={i} className={message.isBot ? "chat bot" : "chat"}>
             <img

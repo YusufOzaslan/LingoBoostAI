@@ -7,8 +7,16 @@ import { sendMsgToOpenAI } from "../../utils/openai";
 function ChatFooter() {
   //const { displayText, setDisplayText } = useContext(MultimediaContext);
 
-  const { messages, setMessages, input, setInput, level, category } =
-    useContext(MessageContext);
+  const {
+    messages,
+    setMessages,
+    input,
+    setInput,
+    level,
+    topic,
+    startChat,
+    setStartChat,
+  } = useContext(MessageContext);
 
   const handleEnter = async (e) => {
     if (e.key === "Enter") await handleSend();
@@ -19,7 +27,7 @@ function ChatFooter() {
     setInput("");
     setMessages([...messages, { text, isBot: false }]);
     try {
-      const res = await sendMsgToOpenAI(input, level, category, messages);
+      const res = await sendMsgToOpenAI(input, level, topic, messages);
       setMessages([
         ...messages,
         { text, isBot: false },
@@ -31,19 +39,39 @@ function ChatFooter() {
   };
 
   return (
-    <div className="inp">
-      <input
-        type="text"
-        placeholder="Send a message"
-        value={input}
-        onKeyDown={handleEnter}
-        onChange={(e) => {
-          setInput(e.target.value);
-        }}
-      />
-      <button className="send">
-        <img src={sendBtn} alt="Send" onClick={handleSend} />
-      </button>
+    <div>
+      {startChat.showFooter && startChat.topicSelected ? (
+        <div className="inp">
+          <input
+            type="text"
+            placeholder="Send a message"
+            value={input}
+            onKeyDown={handleEnter}
+            onChange={(e) => {
+              setInput(e.target.value);
+            }}
+          />
+          <button className="send">
+            <img src={sendBtn} alt="Send" onClick={handleSend} />
+          </button>
+        </div>
+      ) : (
+        <div>
+          <button
+            className="chatBtn"
+            onClick={() => {
+              handleSend();
+              setStartChat((prevStartChat) => ({
+                ...prevStartChat,
+                showFooter: true,
+              }));
+            }}
+            disabled={!startChat.topicSelected}
+          >
+            Choose a topic and start to chat
+          </button>
+        </div>
+      )}
     </div>
   );
 }

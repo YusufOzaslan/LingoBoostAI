@@ -5,14 +5,18 @@ const MessageContext = createContext();
 export const MessageProvider = ({ children }) => {
   const [messages, setMessages] = useState([
     {
-      text: "Hello, let's chat",
+      text: "",
       isBot: true,
     },
   ]);
 
   const [input, setInput] = useState("");
   const [level, setLevel] = useState("B1");
-  const [category, setCategory] = useState("Cooking Recipe Talk");
+  const [topic, setTopic] = useState("");
+  const [startChat, setStartChat] = useState({
+    topicSelected: false,
+    showFooter: false,
+  });
 
   const contextValues = {
     messages,
@@ -21,8 +25,10 @@ export const MessageProvider = ({ children }) => {
     setInput,
     level,
     setLevel,
-    category,
-    setCategory,
+    topic,
+    setTopic,
+    startChat,
+    setStartChat,
   };
 
   return (

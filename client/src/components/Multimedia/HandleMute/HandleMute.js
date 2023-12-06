@@ -2,9 +2,11 @@ import { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVolumeMute } from "@fortawesome/free-solid-svg-icons";
 import MultimediaContext from "../../../context/MultimediaContext";
+import MessageContext from "../../../context/MessageContext";
 
 function HandleMute() {
   const { updatePlayer } = useContext(MultimediaContext);
+  const { startChat } = useContext(MessageContext);
   async function _handleMute() {
     updatePlayer((p) => {
       if (!p.muted) {
@@ -18,12 +20,13 @@ function HandleMute() {
   }
   return (
     <div>
-      {" "}
-      <FontAwesomeIcon
-        icon={faVolumeMute}
-        className="fas fa-volume-mute fa-lg mr-2"
-        onClick={() => _handleMute()}
-      />
+      {startChat.showFooter && startChat.topicSelected && (
+        <FontAwesomeIcon
+          icon={faVolumeMute}
+          className="fas fa-volume-mute fa-lg mr-2"
+          onClick={() => _handleMute()}
+        />
+      )}
     </div>
   );
 }

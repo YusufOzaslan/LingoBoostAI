@@ -19,9 +19,9 @@ app.use(cors());
 
 app.post("/api/sendMsgToOpenAI", async (req, res) => {
   try {
-    const { message, level, category, messages } = req.body;
+    const { message, level, topic, messages } = req.body;
 
-    const messagesForAPI = messages.slice(2).map((msg) => ({
+    const messagesForAPI = messages.slice(1).map((msg) => ({
       role: msg.isBot ? "assistant" : "user",
       content: msg.text,
     }));
@@ -39,7 +39,7 @@ app.post("/api/sendMsgToOpenAI", async (req, res) => {
       messages: [
         {
           role: "system",
-          content: `You are a chat bot for practicing English in the ${category} 
+          content: `You are a chat bot for practicing English in the ${topic} 
           topic at the ${level} English level. Your aim is to start a conversation
            at ${level} level in English education.`,
         },

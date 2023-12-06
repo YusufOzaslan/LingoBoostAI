@@ -8,7 +8,7 @@ import MessageContext from "../../../context/MessageContext";
 const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
 
 function SttFromMic() {
-  const { setInput } = useContext(MessageContext);
+  const { setInput, startChat } = useContext(MessageContext);
 
   async function _sttFromMic() {
     const tokenObj = await getTokenOrRefresh();
@@ -39,12 +39,13 @@ function SttFromMic() {
 
   return (
     <div>
-      {" "}
-      <FontAwesomeIcon
-        icon={faMicrophone}
-        className="fas fa-microphone fa-lg mr-2"
-        onClick={() => _sttFromMic()}
-      />
+      {startChat.showFooter && startChat.topicSelected && (
+        <FontAwesomeIcon
+          icon={faMicrophone}
+          className="fas fa-microphone fa-lg mr-2"
+          onClick={() => _sttFromMic()}
+        />
+      )}
     </div>
   );
 }
