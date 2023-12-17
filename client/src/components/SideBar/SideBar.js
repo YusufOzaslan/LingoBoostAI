@@ -5,14 +5,8 @@ import msgIcon from "../../assets/message.svg";
 import MessageContext from "../../context/MessageContext";
 
 function SideBar() {
-  const {
-    setMessages,
-    level,
-    setLevel,
-    topic,
-    setTopic,
-    setStartChat,
-  } = useContext(MessageContext);
+  const { setMessages, level, setLevel, topic, setTopic, setStartChat } =
+    useContext(MessageContext);
 
   const handleTopicSelection = async (text) => {
     setTopic(text);
@@ -78,42 +72,26 @@ function SideBar() {
         <span className="brand">Choose your English level</span>
         <div className="listItems">
           <button
-            className={`listItemsBtn ${level === "A1" ? "selected" : ""}`}
-            onClick={() => handleLevelClick("A1")}
+            className={`listItemsBtn ${level === "Beginner" ? "selected" : ""}`}
+            onClick={() => handleLevelClick("Beginner")}
           >
-            A1
-          </button>
-          <button
-            className={`listItemsBtn ${level === "A2" ? "selected" : ""}`}
-            onClick={() => handleLevelClick("A2")}
-          >
-            A2
-          </button>
-          <button
-            className={`listItemsBtn ${level === "B1" ? "selected" : ""}`}
-            onClick={() => handleLevelClick("B1")}
-          >
-            B1
+            Beginner
           </button>
         </div>
         <div className="listItems">
           <button
-            className={`listItemsBtn ${level === "B2" ? "selected" : ""}`}
-            onClick={() => handleLevelClick("B2")}
+            className={`listItemsBtn ${level === "Intermediate" ? "selected" : ""}`}
+            onClick={() => handleLevelClick("Intermediate")}
           >
-            B2
+            Intermediate
           </button>
+        </div>
+        <div className="listItems">
           <button
-            className={`listItemsBtn ${level === "C1" ? "selected" : ""}`}
-            onClick={() => handleLevelClick("C1")}
+            className={`listItemsBtn ${level === "Advanced" ? "selected" : ""}`}
+            onClick={() => handleLevelClick("Advanced")}
           >
-            C1
-          </button>
-          <button
-            className={`listItemsBtn ${level === "C2" ? "selected" : ""}`}
-            onClick={() => handleLevelClick("C2")}
-          >
-            C2
+            Advanced
           </button>
         </div>
       </div>

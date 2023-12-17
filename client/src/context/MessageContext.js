@@ -11,7 +11,7 @@ export const MessageProvider = ({ children }) => {
   ]);
 
   const [input, setInput] = useState("");
-  const [level, setLevel] = useState("B1");
+  const [level, setLevel] = useState("Intermediate");
   const [topic, setTopic] = useState("");
   const [startChat, setStartChat] = useState({
     topicSelected: false,

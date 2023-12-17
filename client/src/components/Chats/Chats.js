@@ -20,6 +20,7 @@ function Chats() {
             <img
               className="chatImg"
               src={message.isBot ? appLogo : userIcon}
+              alt=""
             />
             <p className="txt">{message.text}</p>
           </div>

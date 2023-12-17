@@ -32,21 +32,36 @@ app.post("/api/sendMsgToOpenAI", async (req, res) => {
         content: message,
       });
     }
-
+    // Prompt içeriği oluştur
+    let levelDescription = "";
+    switch (level) {
+      case "beginner":
+        levelDescription =
+          "As a beginner level assistant, you should generate dialogues suitable for A2 and B1 levels of CEFR standard. These dialogues should be simple, using basic phrases and sentences related to familiar topics.";
+        break;
+      case "intermediate":
+        levelDescription =
+          "As an intermediate level assistant, you should generate dialogues suitable for B1 and B2 levels of the CEFR standard. These dialogues should involve straightforward, factual topics and express opinions or plans in a detailed manner.";
+        break;
+      case "advanced":
+        levelDescription =
+          "As an advanced level assistant, you should generate dialogues suitable for B2, C1, and C2 levels of the CEFR standard. These dialogues should demonstrate a strong command of the language, with appropriate, accurate and fluent use of complex structures across a variety of topics.";
+        break;
+      default:
+        levelDescription = "";
+    }
     console.log(messagesForAPI);
     const openaiResponse = await openai.chat.completions.create({
       model: "gpt-4",
       messages: [
         {
           role: "system",
-          content: `You are a chat bot for practicing English in the ${topic} 
-          topic at the ${level} English level. Your aim is to start a conversation
-           at ${level} level in English education.`,
+          content: `You are a chat bot for practicing English in the ${topic} topic at the ${level} English CEFR level. Your aim is to start a conversation at ${level} level in English education. ${levelDescription}`,
         },
         ...messagesForAPI,
         //{ role: "user", content: message },
       ],
-      max_tokens: 50,
+      max_tokens: 100,
     });
     console.log(openaiResponse);
     const responseText = openaiResponse.choices[0].message.content;
