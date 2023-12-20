@@ -65,6 +65,24 @@ function SideBar() {
             <img src={msgIcon} alt="Query" className="" />
             Weather Discussion
           </button>
+          <button
+            className={`topic ${
+              topic === "Hobbies" ? "selected" : ""
+            }`}
+            onClick={() => handleTopicSelection("Hobbies")}
+          >
+            <img src={msgIcon} alt="Query" className="" />
+            Hobbies
+          </button>
+          <button
+            className={`topic ${
+              topic === "Travel" ? "selected" : ""
+            }`}
+            onClick={() => handleTopicSelection("Travel")}
+          >
+            <img src={msgIcon} alt="Query" className="" />
+            Travel
+          </button>
         </div>
       </div>
 
@@ -80,7 +98,9 @@ function SideBar() {
         </div>
         <div className="listItems">
           <button
-            className={`listItemsBtn ${level === "Intermediate" ? "selected" : ""}`}
+            className={`listItemsBtn ${
+              level === "Intermediate" ? "selected" : ""
+            }`}
             onClick={() => handleLevelClick("Intermediate")}
           >
             Intermediate
